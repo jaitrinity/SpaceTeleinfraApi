@@ -46,10 +46,27 @@
 // echo $domain."<br>";
 // echo $fileURL."<br>";
 
-$arrList = array();
-for($i=0;$i<10;$i++){
-	array_push($arrList, 'Jai '.$i);
+// $arrList = array();
+// for($i=0;$i<10;$i++){
+// 	array_push($arrList, 'Jai '.$i);
+// }
+// $imp = implode("','", $arrList);
+// echo $imp;
+
+$period = "YTD";
+$startDate = "";
+// $monthNumber = date('m');
+$monthNumber = 2;
+// $year = date('Y');
+$year = date('Y');
+if($period == "MTD"){
+	$startDate = $year."-".$monthNumber.'-01';
 }
-$imp = implode("','", $arrList);
-echo $imp;
+else if($period == "YTD"){
+	if($monthNumber == 1 || $monthNumber == 2 || $monthNumber == 3){
+		$year = ($year - 1);
+	}
+	$startDate = $year."-04-01";
+}
+echo $startDate;
 ?>

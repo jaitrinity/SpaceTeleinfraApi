@@ -18,31 +18,95 @@ if($roleId == 10){ // For admin
 	}
 }
 else{
-	$sql = "SELECT `MenuId` FROM `Mapping` WHERE `EmpId` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$sql = "SELECT distinct `MenuId` FROM `Mapping` WHERE `EmpId` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
 	$query=mysqli_query($conn,$sql);
+
+
 	while($row = mysqli_fetch_assoc($query)){
 		$menuId = $row["MenuId"];
 		array_push($menuArr,$menuId);
 	}
 
-	$verifierSql = "SELECT `MenuId` FROM `Mapping` WHERE find_in_set('$empId',`Verifier`) <> 0 and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	// $verifierSql = "SELECT distinct mp.MenuId
+	// 				FROM Mapping mp
+	// 				join TransactionHDR th on (mp.ActivityId = th.ActivityId)	
+	// 				WHERE mp.Verifier = '$empId' and mp.Active = 1 and th.Status = 'Created'";
+	// $verifierQuery=mysqli_query($conn,$verifierSql);
+	// while($vrow = mysqli_fetch_assoc($verifierQuery)){
+	// 	$vMenuId = $vrow["MenuId"];
+	// 	array_push($menuArr,$vMenuId);
+	// }
 
-	$approverSql = "SELECT `MenuId` FROM `Mapping` WHERE `Approver` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	// $approverSql = "SELECT distinct mp.MenuId
+	// 				FROM Mapping mp
+	// 				join TransactionHDR th on (mp.ActivityId = th.ActivityId)	
+	// 				WHERE mp.Approver = '$empId' and mp.Active = 1 and th.Status = 'Verified'";
+	// $approverQuery=mysqli_query($conn,$approverSql);
+	// while($arow = mysqli_fetch_assoc($approverQuery)){
+	// 	$aMenuId = $arow["MenuId"];
+	// 	array_push($menuArr,$aMenuId);
+	// }
 
-	$thirdSql = "SELECT `MenuId` FROM `Mapping` WHERE `Third` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	// $thirdSql = "SELECT distinct mp.MenuId
+	// 				FROM Mapping mp
+	// 				join TransactionHDR th on (mp.ActivityId = th.ActivityId)	
+	// 				WHERE mp.Third = '$empId' and mp.Active = 1 and th.Status = 'Approved'";
+	// $thirdQuery=mysqli_query($conn,$thirdSql);
+	// while($thirdRow = mysqli_fetch_assoc($thirdQuery)){
+	// 	$thirdMenuId = $thirdRow["MenuId"];
+	// 	array_push($menuArr,$thirdMenuId);
+	// }
 
-	$fourthSql = "SELECT `MenuId` FROM `Mapping` WHERE find_in_set('$empId',`Fourth`) <> 0 and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	// $fourthSql = "SELECT distinct mp.MenuId
+	// 				FROM Mapping mp
+	// 				join TransactionHDR th on (mp.ActivityId = th.ActivityId)	
+	// 				WHERE mp.Fourth = '$empId' and mp.Active = 1 and th.Status = 'STATUS_03'";
+	// $fourthQuery=mysqli_query($conn,$fourthSql);
+	// while($fourthRow = mysqli_fetch_assoc($fourthQuery)){
+	// 	$fourthMenuId = $fourthRow["MenuId"];
+	// 	array_push($menuArr,$fourthMenuId);
+	// }
 
-	$fifthSql = "SELECT `MenuId` FROM `Mapping` WHERE `Fifth` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$verifierSql = "SELECT distinct `MenuId` FROM `Mapping` WHERE find_in_set('$empId',`Verifier`) <> 0 and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$verifierQuery=mysqli_query($conn,$verifierSql);
+	while($vrow = mysqli_fetch_assoc($verifierQuery)){
+		$vMenuId = $vrow["MenuId"];
+		array_push($menuArr,$vMenuId);
+	}
 
-	$sixthSql = "SELECT `MenuId` FROM `Mapping` WHERE find_in_set('$empId',`Sixth`) <> 0 and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$approverSql = "SELECT distinct `MenuId` FROM `Mapping` WHERE `Approver` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$approverQuery=mysqli_query($conn,$approverSql);
+	while($arow = mysqli_fetch_assoc($approverQuery)){
+		$aMenuId = $arow["MenuId"];
+		array_push($menuArr,$aMenuId);
+	}
 
-	$all = "$verifierSql UNION $approverSql UNION $thirdSql UNION $fourthSql UNION $fifthSql UNION $sixthSql";
-	
-	$allQuery=mysqli_query($conn,$all);
-	while($allRow = mysqli_fetch_assoc($allQuery)){
-		$allMenuId = $allRow["MenuId"];
-		array_push($menuArr,$allMenuId);
+	$thirdSql = "SELECT distinct `MenuId` FROM `Mapping` WHERE `Third` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$thirdQuery=mysqli_query($conn,$thirdSql);
+	while($tRow = mysqli_fetch_assoc($thirdQuery)){
+		$tMenuId = $tRow["MenuId"];
+		array_push($menuArr,$tMenuId);
+	}
+
+	$fourthSql = "SELECT distinct `MenuId` FROM `Mapping` WHERE find_in_set('$empId',`Fourth`) <> 0 and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$fourthQuery=mysqli_query($conn,$fourthSql);
+	while($foRow = mysqli_fetch_assoc($fourthQuery)){
+		$foMenuId = $foRow["MenuId"];
+		array_push($menuArr,$foMenuId);
+	}
+
+	$fifthSql = "SELECT distinct `MenuId` FROM `Mapping` WHERE `Fifth` = '$empId' and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$fifthQuery=mysqli_query($conn,$fifthSql);
+	while($fiRow = mysqli_fetch_assoc($fifthQuery)){
+		$fiMenuId = $fiRow["MenuId"];
+		array_push($menuArr,$fiMenuId);
+	}
+
+	$sixthSql = "SELECT distinct `MenuId` FROM `Mapping` WHERE find_in_set('$empId',`Sixth`) <> 0 and `Tenent_Id` = $tenentId  and `Active` = 1 ";
+	$sixthQuery=mysqli_query($conn,$sixthSql);
+	while($sixthRow = mysqli_fetch_assoc($sixthQuery)){
+		$sixthMenuId = $sixthRow["MenuId"];
+		array_push($menuArr,$sixthMenuId);
 	}
 
 	$roleSql = "SELECT distinct MenuId FROM Role WHERE RoleId = '$roleId' ";
@@ -57,6 +121,17 @@ else{
 	}
 }
 	
+
+/*$ssignSql = "SELECT distinct `MenuId` FROM `Assign` WHERE `EmpId` = '$empId' AND date(`StartDate`) <= date(now()) AND date(`EndDate`) >= date(now()) AND `ActivityId` is  null 
+AND `Active` = 1 ";
+$assignQuery=mysqli_query($conn,$ssignSql);
+while($assignRow = mysqli_fetch_assoc($assignQuery)){
+	$assignMenuId = $assignRow["MenuId"];
+	if(!in_array($assignMenuId, $menuArr)){
+		array_push($menuArr,$assignMenuId);
+	}
+}
+*/
 
 $newArr = array_unique($menuArr);
 $newArr = array_values($newArr);

@@ -990,7 +990,7 @@ else if($selectType == "supervisor"){
 }
 else if($selectType == "supervisorTraining"){
 	$trainingList = array();
-	$sql = "SELECT s.Id, e.Name, s.CompanyName, s.TrainingIdNo, s.TrainingType, s.TrainingDate, s.TrainingExDate, s.TrainingPic, s.TrainingGivenBy, s.ModeOfTraining, s.Status FROM SupervisorTraining s join Employees e on s.EmpId = e.EmpId where 1=1 and s.IsDeleted = 0 order by s.Status, s.Id desc";
+	$sql = "SELECT s.Id, e.Name, s.CompanyName, s.TrainingIdNo, s.TrainingType, s.TrainingDate, s.TrainingExDate, s.TrainingPic, s.TrainingGivenBy, s.ModeOfTraining, s.Status FROM SupervisorTraining s join Employees e on s.EmpId = e.EmpId and e.Active=1 and e.RoleId=58 where 1=1 and s.IsDeleted = 0 order by s.Status, s.Id desc";
 	$query=mysqli_query($conn,$sql);
 	while($row = mysqli_fetch_assoc($query)){
 		$status = $row["Status"];
