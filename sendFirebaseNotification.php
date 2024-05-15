@@ -1,6 +1,5 @@
 <?php
-define('API_ACCESS_KEY','AAAATfPJYjQ:APA91bFtN5au4B_SmNBQkZxAh0T4z_HFekF-gRgROWpqcX8IQw3adu1M8I905DtoGCiEUSyWOr0w76UaSjhysGn3k6OH9y8Cb-zi5M18qKAHqh6w9LsmeRWz_kEA2rZBn-RIDfZrQbZ-');
-//define('API_ACCESS_KEY','AAAApcvGpIk:APA91bGE4oZ3mHoGuQTgMY3rsQ-FacO5AhjiHxLkVj9KSm_rQbyaW-09ch9RtBb8birb3exaqEuZ6iwcO0WB-8WMESVOvl05KnMlOQqpVqzSGeCg7CGXwxdTVloPyTXOKDyiytfStNAu');
+define('API_ACCESS_KEY','');
  $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
  
 /* require('conf.php');
